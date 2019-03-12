@@ -1,8 +1,8 @@
-package com.stackroute.FGF.service;
+package com.stackroute.fgf.service;
 
-import com.stackroute.FGF.domain.Player;
-import com.stackroute.FGF.repository.PlayerRepository;
-import com.stackroute.FGF.repository.PlayerService;
+import com.stackroute.fgf.domain.Player;
+import com.stackroute.fgf.repository.PlayerRepository;
+import com.stackroute.fgf.repository.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +46,11 @@ public class PlayerFileSystemService implements PlayerService {
     @Override
     public void deletePlayerById(int id) {
         playerRepository.deleteById(id);
+    }
+
+    public Iterable<Player> getPlayerByName(String name){
+        Iterable<Player> playerByName =  playerRepository.findByName(name);
+        return playerByName;
     }
 
 }

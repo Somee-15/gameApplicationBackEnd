@@ -1,4 +1,4 @@
-package com.stackroute.FGF;
+package com.stackroute.fgf;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,4 +1,4 @@
-package com.stackroute.FGF.domain;
+package com.stackroute.fgf.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.stackroute.FGF;
+package com.stackroute.fgf;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
