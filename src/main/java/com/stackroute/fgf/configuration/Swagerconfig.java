@@ -9,6 +9,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/*class to provide api information*/
 @Configuration
 @EnableSwagger2
 public class Swagerconfig {

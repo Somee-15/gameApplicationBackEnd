@@ -10,6 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+/*class to initialize the database at startup of application
+ *Using @Vlaue,
+ *@PropertySource and
+ *Enviroment
+ */
 @Component
 @PropertySource("classpath:application.properties")
 public class StartupCommandLineRunner implements CommandLineRunner {
@@ -27,15 +32,13 @@ public class StartupCommandLineRunner implements CommandLineRunner {
     @Value("${score:default}")
     int score;
 
-
     @Autowired
-    public StartupCommandLineRunner(PlayerRepository playerRepository){
-        this.playerRepository=playerRepository;
+    public StartupCommandLineRunner(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
     }
-    @Override
-    @Order(1)
-    public void run(String... args) throws Exception {
-        playerRepository.save(new Player(id,name,score,env.getProperty("feedback")));
 
+    @Override
+    public void run(String... args) throws Exception {
+        playerRepository.save(new Player(id, name, score, env.getProperty("feedback")));
     }
 }

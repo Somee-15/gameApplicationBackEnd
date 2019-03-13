@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/*class to handle all Exception*/
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(PlayerAlreadyExitsException.class)
@@ -13,7 +14,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(PlayerNotExitsException.class)
-    public ResponseEntity<String> handlePlayerNotExitsException(PlayerNotExitsException e){
+    public ResponseEntity<String> handlePlayerNotExitsException(PlayerNotExitsException e) {
         return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
 
     }

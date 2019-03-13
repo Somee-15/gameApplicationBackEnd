@@ -4,41 +4,53 @@ import com.stackroute.fgf.domain.Player;
 import com.stackroute.fgf.exceptions.PlayerAlreadyExitsException;
 import com.stackroute.fgf.exceptions.PlayerNotExitsException;
 import com.stackroute.fgf.repository.PlayerRepository;
-import com.stackroute.fgf.repository.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/*
+* Implements PlayerService Interface
+*/
 @Service
-public class PlayerFileSystemService implements PlayerService {
+public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
 
+
     @Autowired
-    public PlayerFileSystemService(PlayerRepository playerRepository){
-        this.playerRepository=playerRepository;
+    public PlayerServiceImpl(PlayerRepository playerRepository) {
+        this.playerRepository = playerRepository;
     }
 
+    /*
+    * Method to Save Player Details
+    */
     @Override
-    public Player setPlayer(Player player) throws PlayerAlreadyExitsException {
-        if(playerRepository.existsById(player.getId()))
-        {
+    public Player savePlayer(Player player) throws PlayerAlreadyExitsException {
+        if (playerRepository.existsById(player.getId())) {
             throw new PlayerAlreadyExitsException("Player already Exits");
         }
         Player savePlayer = playerRepository.save(player);
         return savePlayer;
     }
 
+    /*
+    * Method to Get All Player Details
+    */
     @Override
     public Iterable<Player> getAllPlayers() {
         Iterable<Player> list = playerRepository.findAll();
         return list;
     }
 
+    /*
+    * Method to Update Player Details
+    * Using Player Id
+    */
     @Override
-    public Player updatePlayer(Player player,int id) throws PlayerNotExitsException {
+    public Player updatePlayerById(Player player, int id) throws PlayerNotExitsException {
         player.setId(id);
-        if(!playerRepository.existsById(id)) {
+        if (!playerRepository.existsById(id)) {
             throw new PlayerNotExitsException("Player Not Exits");
         }
         Player updatePlayer = playerRepository.save(player);
@@ -46,9 +58,13 @@ public class PlayerFileSystemService implements PlayerService {
     }
 
 
+    /*
+    * Method to Search for Player Details
+    * Using Player Id
+    */
     @Override
     public Optional<Player> getPlayerById(int id) throws PlayerNotExitsException {
-        if(!playerRepository.existsById(id)) {
+        if (!playerRepository.existsById(id)) {
             throw new PlayerNotExitsException("Player Not Exits");
         }
 
@@ -56,19 +72,27 @@ public class PlayerFileSystemService implements PlayerService {
         return playerByid;
     }
 
+    /*
+    * Method to Delete Player Details from DB
+    * Using Player Id
+    */
     @Override
     public void deletePlayerById(int id) throws PlayerNotExitsException {
-        if(!playerRepository.existsById(id)) {
+        if (!playerRepository.existsById(id)) {
             throw new PlayerNotExitsException("Player Not Exits");
         }
         playerRepository.deleteById(id);
     }
 
-    public Iterable<Player> getPlayerByName(String name) throws PlayerNotExitsException{
-        if(playerRepository.playerExits(name)==0) {
+    /*
+    * Method to Search for Player Details
+    * Using Player Name
+    */
+    public Iterable<Player> getPlayerByName(String name) throws PlayerNotExitsException {
+        if (playerRepository.playerExits(name) == 0) {
             throw new PlayerNotExitsException("Player Not Exits");
         }
-        Iterable<Player> playerByName =  playerRepository.findByName(name);
+        Iterable<Player> playerByName = playerRepository.findByName(name);
         return playerByName;
     }
 
