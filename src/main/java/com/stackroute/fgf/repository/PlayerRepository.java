@@ -11,4 +11,7 @@ import java.util.List;
 public interface PlayerRepository extends CrudRepository<Player,Integer> {
     @Query("select p from Player p where p.name=?1")
     List<Player> findByName(String name);
+
+    @Query("select count(p) from Player p where p.name=?1")
+    int playerExits(String name);
 }

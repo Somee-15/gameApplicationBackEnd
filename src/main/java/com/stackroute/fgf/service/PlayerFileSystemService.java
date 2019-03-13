@@ -1,6 +1,8 @@
 package com.stackroute.fgf.service;
 
 import com.stackroute.fgf.domain.Player;
+import com.stackroute.fgf.exceptions.PlayerAlreadyExitsException;
+import com.stackroute.fgf.exceptions.PlayerNotExitsException;
 import com.stackroute.fgf.repository.PlayerRepository;
 import com.stackroute.fgf.repository.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,11 @@ public class PlayerFileSystemService implements PlayerService {
     }
 
     @Override
-    public Player setPlayer(Player player) {
+    public Player setPlayer(Player player) throws PlayerAlreadyExitsException {
+        if(playerRepository.existsById(player.getId()))
+        {
+            throw new PlayerAlreadyExitsException("Player already Exits");
+        }
         Player savePlayer = playerRepository.save(player);
         return savePlayer;
     }
@@ -30,25 +36,38 @@ public class PlayerFileSystemService implements PlayerService {
     }
 
     @Override
-    public Player updatePlayer(Player player,int id) {
+    public Player updatePlayer(Player player,int id) throws PlayerNotExitsException {
         player.setId(id);
+        if(!playerRepository.existsById(id)) {
+            throw new PlayerNotExitsException("Player Not Exits");
+        }
         Player updatePlayer = playerRepository.save(player);
         return updatePlayer;
     }
 
 
     @Override
-    public Optional<Player> getPlayerById(int id) {
+    public Optional<Player> getPlayerById(int id) throws PlayerNotExitsException {
+        if(!playerRepository.existsById(id)) {
+            throw new PlayerNotExitsException("Player Not Exits");
+        }
+
         Optional<Player> playerByid = playerRepository.findById(id);
         return playerByid;
     }
 
     @Override
-    public void deletePlayerById(int id) {
+    public void deletePlayerById(int id) throws PlayerNotExitsException {
+        if(!playerRepository.existsById(id)) {
+            throw new PlayerNotExitsException("Player Not Exits");
+        }
         playerRepository.deleteById(id);
     }
 
-    public Iterable<Player> getPlayerByName(String name){
+    public Iterable<Player> getPlayerByName(String name) throws PlayerNotExitsException{
+        if(playerRepository.playerExits(name)==0) {
+            throw new PlayerNotExitsException("Player Not Exits");
+        }
         Iterable<Player> playerByName =  playerRepository.findByName(name);
         return playerByName;
     }
