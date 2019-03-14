@@ -19,13 +19,13 @@ public class StartupCommandLineRunner implements CommandLineRunner {
     Environment env;
 
     @Value("${id:default}")
-    int id;
+    String id;
 
     @Value("${name:default}")
     String name;
 
     @Value("${score:default}")
-    int score;
+    String score;
 
 
     @Autowired
@@ -33,7 +33,6 @@ public class StartupCommandLineRunner implements CommandLineRunner {
         this.playerRepository=playerRepository;
     }
     @Override
-    @Order(1)
     public void run(String... args) throws Exception {
         playerRepository.save(new Player(id,name,score,env.getProperty("feedback")));
 

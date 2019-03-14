@@ -3,13 +3,14 @@ package com.stackroute.fgf.controller;
 import com.stackroute.fgf.domain.Player;
 import com.stackroute.fgf.exceptions.PlayerAlreadyExitsException;
 import com.stackroute.fgf.exceptions.PlayerNotExitsException;
-import com.stackroute.fgf.repository.PlayerService;
-import com.stackroute.fgf.service.PlayerFileSystemService;
+import com.stackroute.fgf.service.PlayerService;
+import com.stackroute.fgf.service.PlayerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,17 +20,15 @@ public class PlayerController {
 
 
     @Autowired
-    public PlayerController(PlayerFileSystemService PlayerFileSystemService) {
-        this.playerService = PlayerFileSystemService;
+    public PlayerController(PlayerServiceImpl playerServiceImpl) {
+        this.playerService = playerServiceImpl;
     }
 
     @PostMapping("/player")
     public ResponseEntity<String> savePlayer(@RequestBody Player Player) throws PlayerAlreadyExitsException {
         ResponseEntity responseEntity;
-
-        playerService.setPlayer(Player);
+        playerService.savePlayer(Player);
         responseEntity = new ResponseEntity<String>("Succesfully add", HttpStatus.CREATED);
-
         return responseEntity;
     }
 
@@ -40,26 +39,24 @@ public class PlayerController {
     }
 
     @GetMapping("/player/{id}")
-    public ResponseEntity<?> getPlayer(@PathVariable int id) throws PlayerNotExitsException {
+    public ResponseEntity<?> getPlayer(@PathVariable String id) throws PlayerNotExitsException {
         ResponseEntity responseEntity;
-        Optional<Player> Player = playerService.getPlayerById(id);
-        responseEntity = new ResponseEntity<Optional<Player>>(Player, HttpStatus.FOUND);
-
+        List<Player> Player = playerService.getPlayerById(id);
+        responseEntity = new ResponseEntity<List<Player>>(Player, HttpStatus.FOUND);
         return responseEntity;
-
     }
 
     @PutMapping("/player/{id}")
-    public ResponseEntity<?> updatePlayer(@RequestBody Player Player, @PathVariable int id) throws PlayerNotExitsException {
+    public ResponseEntity<?> updatePlayer(@RequestBody Player Player, @PathVariable String id) throws PlayerNotExitsException {
         ResponseEntity responseEntity;
-        Player savedPlayer = playerService.updatePlayer(Player, id);
+        Player savedPlayer = playerService.updatePlayerById(Player, id);
         responseEntity = new ResponseEntity<Player>(savedPlayer, HttpStatus.FOUND);
         return responseEntity;
 
     }
 
     @DeleteMapping("/player/{id}")
-    public ResponseEntity<?> deletePlayerById(@PathVariable int id) throws PlayerNotExitsException {
+    public ResponseEntity<?> deletePlayerById(@PathVariable String id) throws PlayerNotExitsException {
         ResponseEntity responseEntity;
 
         playerService.deletePlayerById(id);
