@@ -4,7 +4,7 @@ import com.stackroute.fgf.domain.Player;
 import com.stackroute.fgf.exceptions.PlayerAlreadyExitsException;
 import com.stackroute.fgf.exceptions.PlayerNotExitsException;
 import com.stackroute.fgf.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,14 +13,10 @@ import java.util.Optional;
 * Implements PlayerService Interface
 */
 @Service
+@AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
 
-
-    @Autowired
-    public PlayerServiceImpl(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
 
     /*
     * Method to Save Player Details

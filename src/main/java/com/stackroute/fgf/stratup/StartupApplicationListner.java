@@ -2,23 +2,19 @@ package com.stackroute.fgf.stratup;
 
 import com.stackroute.fgf.domain.Player;
 import com.stackroute.fgf.repository.PlayerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 /*class to initialize the database at startup of application*/
 @Component
+@AllArgsConstructor
 public class StartupApplicationListner implements ApplicationListener<ContextRefreshedEvent> {
     private PlayerRepository playerRepository;
 
-    @Autowired
-    public StartupApplicationListner(PlayerRepository playerRepository) {
-        this.playerRepository = playerRepository;
-    }
-
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        playerRepository.save(new Player(1, "somee", 50, "good"));
+        playerRepository.save(new Player(1, "somee", 50, "bad"));
     }
 }

@@ -4,8 +4,7 @@ import com.stackroute.fgf.domain.Player;
 import com.stackroute.fgf.exceptions.PlayerAlreadyExitsException;
 import com.stackroute.fgf.exceptions.PlayerNotExitsException;
 import com.stackroute.fgf.service.PlayerService;
-import com.stackroute.fgf.service.PlayerServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +14,11 @@ import java.util.Optional;
 /*Controller to map url requests*/
 @RestController
 @RequestMapping("/fgf/api/v1")
+@AllArgsConstructor
 public class PlayerController {
     private PlayerService playerService;
 
 
-    @Autowired
-    public PlayerController(PlayerServiceImpl playerServiceImpl) {
-        this.playerService = playerServiceImpl;
-    }
 
     /*Mapping of Saveplayer Details Method*/
     @PostMapping("/player")
