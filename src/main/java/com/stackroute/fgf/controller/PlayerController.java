@@ -18,8 +18,6 @@ import java.util.Optional;
 public class PlayerController {
     private PlayerService playerService;
 
-
-
     /*Mapping of Saveplayer Details Method*/
     @PostMapping("/player")
     public ResponseEntity<String> savePlayer(@RequestBody Player Player) throws PlayerAlreadyExitsException {
@@ -28,7 +26,6 @@ public class PlayerController {
         responseEntity = new ResponseEntity<String>("Succesfully add", HttpStatus.CREATED);
         return responseEntity;
     }
-
 
     /*Mapping of GetAllPlayer Details Method*/
     @GetMapping("/players")
@@ -43,9 +40,7 @@ public class PlayerController {
         ResponseEntity responseEntity;
         Optional<Player> Player = playerService.getPlayerById(id);
         responseEntity = new ResponseEntity<Optional<Player>>(Player, HttpStatus.FOUND);
-
         return responseEntity;
-
     }
 
     /*Mapping of UpdatePlayer Details Method using Player Id*/
@@ -55,7 +50,6 @@ public class PlayerController {
         Player savedPlayer = playerService.updatePlayerById(Player, id);
         responseEntity = new ResponseEntity<Player>(savedPlayer, HttpStatus.FOUND);
         return responseEntity;
-
     }
 
     /*Mapping of DeletePlayer Details Method using Player Id*/
@@ -75,5 +69,4 @@ public class PlayerController {
         responseEntity = new ResponseEntity<Iterable<Player>>(player, HttpStatus.FOUND);
         return responseEntity;
     }
-
 }

@@ -17,7 +17,6 @@ import java.util.Optional;
 public class PlayerServiceImpl implements PlayerService {
     private PlayerRepository playerRepository;
 
-
     /*
     * Method to Save Player Details
     */
@@ -63,7 +62,6 @@ public class PlayerServiceImpl implements PlayerService {
         if (!playerRepository.existsById(id)) {
             throw new PlayerNotExitsException("Player Not Exits");
         }
-
         Optional<Player> playerByid = playerRepository.findById(id);
         return playerByid;
     }
@@ -91,5 +89,4 @@ public class PlayerServiceImpl implements PlayerService {
         Iterable<Player> playerByName = playerRepository.findByName(name);
         return playerByName;
     }
-
 }

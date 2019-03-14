@@ -16,7 +16,5 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlayerNotExitsException.class)
     public ResponseEntity<String> handlePlayerNotExitsException(PlayerNotExitsException e) {
         return new ResponseEntity<String>(e.getMessage(), HttpStatus.CONFLICT);
-
     }
-
 }

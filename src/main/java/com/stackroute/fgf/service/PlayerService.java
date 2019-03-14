@@ -21,5 +21,4 @@ public interface PlayerService {
     public void deletePlayerById(int id) throws PlayerNotExitsException;
 
     public Iterable<Player> getPlayerByName(String name) throws PlayerNotExitsException;
-
 }
